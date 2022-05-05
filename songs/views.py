@@ -17,18 +17,17 @@ def songs_list(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-    return Response('ok')
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def song_detail(request, pk):
-#     song = get_object_or_404(Songs, pk=pk)
-#     if request.method == 'GET':
-#         serializer = SongsSerializer(song)
-#         return Response(serializer.data)
-#     elif request.method == 'PUT':
-#         serializer = SongsSerializer(song, data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-#     elif request.method == 'DELETE':
-#         song.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+@api_view(['GET', 'PUT', 'DELETE'])
+def song_detail(request, pk):
+    song = get_object_or_404(Songs, pk=pk)
+    if request.method == 'GET':
+        serializer = SongsSerializer(song)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        serializer = SongsSerializer(song, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        song.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
